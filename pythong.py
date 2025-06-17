@@ -12,3 +12,14 @@ peaks_df = df_clean.iloc[peaks][['Time (s)', 'Sound pressure level (dB)']]
 
 # Xuất ra file Excel
 peaks_df.to_excel("Dinh_am_thanh.xlsx", index=False)
+
+# Tính bước thời gian trung bình giữa các đỉnh để tính chu kỳ trung bình
+times = peaks_df['Time (s)'].values
+if len(times) > 1:
+    period = (times[-1] - times[0]) / (len(times) - 1)
+    frequency = 1 / period  # Tần số
+    speed_of_sound = 343  # Tốc độ âm thanh (m/s)
+    wavelength = speed_of_sound / frequency
+    print("Wavelength of the sound: {:.2f} m".format(wavelength))
+else:
+    print("Not enough peaks to calculate wavelength")
